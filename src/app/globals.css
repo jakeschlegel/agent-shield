@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-orange: #F97316;
+  --color-orange-light: #FFF7ED;
+  --color-purple: #8B5CF6;
+  --color-purple-light: #F5F3FF;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #ffffff;
+  color: #111827;
+}
