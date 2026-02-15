@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   Bot,
@@ -10,6 +11,8 @@ import {
   Swords,
   ScrollText,
   Shield,
+  Menu,
+  X,
 } from "lucide-react";
 
 const navSections = [
@@ -38,17 +41,42 @@ const navSections = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
-  return (
-    <aside className="w-64 border-r border-gray-200 bg-white flex flex-col h-full shrink-0">
-      <div className="flex items-center gap-2.5 px-5 py-5 border-b border-gray-200">
-        <div className="w-8 h-8 rounded-[6px] bg-orange-500 flex items-center justify-center">
-          <Shield className="w-4.5 h-4.5 text-white" size={18} />
+  // Close on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const sidebarContent = (
+    <>
+      <div className="flex items-center justify-between px-5 py-5 border-b border-gray-200">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-[6px] bg-orange-500 flex items-center justify-center">
+            <Shield className="w-4.5 h-4.5 text-white" size={18} />
+          </div>
+          <div>
+            <span className="font-semibold text-[15px] text-gray-900">Agent Shield</span>
+            <span className="block text-[11px] text-gray-400 -mt-0.5">by Adaptive Security</span>
+          </div>
         </div>
-        <div>
-          <span className="font-semibold text-[15px] text-gray-900">Agent Shield</span>
-          <span className="block text-[11px] text-gray-400 -mt-0.5">by Adaptive Security</span>
-        </div>
+        <button
+          onClick={() => setOpen(false)}
+          className="md:hidden p-2 -mr-2 text-gray-400 hover:text-gray-600"
+          aria-label="Close menu"
+        >
+          <X size={20} />
+        </button>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-6 overflow-y-auto">
@@ -64,7 +92,7 @@ export function Sidebar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-[6px] text-[14px] font-medium transition-colors ${
+                    className={`flex items-center gap-3 px-3 py-2.5 min-h-[44px] rounded-[6px] text-[14px] font-medium transition-colors ${
                       isActive
                         ? "bg-orange-500 text-white"
                         : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
@@ -89,6 +117,49 @@ export function Sidebar() {
           </div>
         </div>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Mobile header bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-white border-b border-gray-200 flex items-center px-4 h-14">
+        <button
+          onClick={() => setOpen(true)}
+          className="p-2 -ml-2 text-gray-600 hover:text-gray-900 min-w-[44px] min-h-[44px] flex items-center justify-center"
+          aria-label="Open menu"
+        >
+          <Menu size={22} />
+        </button>
+        <div className="flex items-center gap-2 ml-2">
+          <div className="w-7 h-7 rounded-[5px] bg-orange-500 flex items-center justify-center">
+            <Shield className="text-white" size={15} />
+          </div>
+          <span className="font-semibold text-sm text-gray-900">Agent Shield</span>
+        </div>
+      </div>
+
+      {/* Mobile overlay */}
+      {open && (
+        <div
+          className="md:hidden fixed inset-0 z-50 bg-black/30 backdrop-blur-sm"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      {/* Mobile drawer */}
+      <aside
+        className={`md:hidden fixed top-0 left-0 z-50 w-72 h-full bg-white flex flex-col transform transition-transform duration-200 ease-out ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {sidebarContent}
+      </aside>
+
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex w-64 border-r border-gray-200 bg-white flex-col h-full shrink-0">
+        {sidebarContent}
+      </aside>
+    </>
   );
 }

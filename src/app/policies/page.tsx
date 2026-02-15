@@ -17,8 +17,8 @@ export default function PoliciesPage() {
   const totalViolations = policies.reduce((acc, p) => acc + p.compliance.filter(c => !c.compliant).length, 0);
 
   return (
-    <div className="p-8 max-w-6xl">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Policies & Guardrails</h1>
           <p className="text-sm text-gray-500 mt-1">{policies.length} policies configured · {totalViolations} active violations</p>

@@ -20,8 +20,8 @@ export default function AgentInventory() {
   });
 
   return (
-    <div className="p-8 max-w-7xl">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Agent Inventory</h1>
           <p className="text-sm text-gray-500 mt-1">{agents.length} agents monitored across your organization</p>
@@ -33,37 +33,36 @@ export default function AgentInventory() {
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-3 mb-6">
-        <div className="relative flex-1 max-w-sm">
+      <div className="flex flex-col gap-3 mb-6">
+        <div className="relative w-full sm:max-w-sm">
           <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
           <input
             type="text"
             placeholder="Search agents..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+            className="w-full pl-9 pr-4 py-2.5 min-h-[44px] text-sm border border-gray-200 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
           />
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           <Filter size={14} className="text-gray-400" />
           {departments.map((d) => (
             <button
               key={d}
               onClick={() => setDept(d)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-[6px] transition-colors ${
+              className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] transition-colors ${
                 dept === d ? "bg-orange-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}
             >
               {d}
             </button>
           ))}
-        </div>
-        <div className="flex items-center gap-1.5 ml-2">
+          <span className="w-px h-5 bg-gray-200 hidden sm:block" />
           {platforms.map((p) => (
             <button
               key={p}
               onClick={() => setPlatform(p)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-[6px] transition-colors ${
+              className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] transition-colors ${
                 platform === p ? "bg-purple-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}
             >
@@ -74,8 +73,8 @@ export default function AgentInventory() {
       </div>
 
       {/* Table */}
-      <div className="bg-white border border-gray-200 rounded-[6px] overflow-hidden">
-        <table className="w-full">
+      <div className="bg-white border border-gray-200 rounded-[6px] overflow-x-auto">
+        <table className="w-full min-w-[700px]">
           <thead>
             <tr className="border-b border-gray-200 bg-gray-50/50">
               <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">Agent</th>

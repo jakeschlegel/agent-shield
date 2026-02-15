@@ -15,8 +15,8 @@ export default function RedTeamPage() {
   const overallTotal = redTeamTests.reduce((acc, t) => acc + t.tests.length, 0);
 
   return (
-    <div className="p-8 max-w-6xl">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Red Team</h1>
           <p className="text-sm text-gray-500 mt-1">Simulated attack results across your AI agent fleet</p>
@@ -27,7 +27,7 @@ export default function RedTeamPage() {
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {redTeamTests.map((test) => {
           const Icon = iconMap[test.icon] || ShieldAlert;
           return (
@@ -72,7 +72,7 @@ export default function RedTeamPage() {
               </div>
               <div className="divide-y divide-gray-100">
                 {test.tests.map((t, i) => (
-                  <div key={i} className="flex items-center gap-4 px-5 py-3 hover:bg-gray-50/50">
+                  <div key={i} className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 px-4 sm:px-5 py-3 hover:bg-gray-50/50">
                     {t.result === "pass" ? (
                       <CheckCircle2 size={18} className="text-green-500 shrink-0" />
                     ) : t.result === "fail" ? (

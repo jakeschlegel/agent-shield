@@ -16,8 +16,8 @@ export default function AlertsPage() {
   });
 
   return (
-    <div className="p-8 max-w-6xl">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-6xl">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Alerts</h1>
           <p className="text-sm text-gray-500 mt-1">{alerts.filter(a => a.status !== "resolved").length} active alerts requiring review</p>
@@ -30,22 +30,22 @@ export default function AlertsPage() {
         </div>
       </div>
 
-      <div className="flex items-center gap-4 mb-6">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs text-gray-500 font-medium">Severity:</span>
           {severityFilters.map((s) => (
             <button key={s} onClick={() => setSeverity(s)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-[6px] capitalize transition-colors ${
+              className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] capitalize transition-colors ${
                 severity === s ? "bg-orange-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}>{s}</button>
           ))}
         </div>
-        <div className="w-px h-5 bg-gray-200" />
-        <div className="flex items-center gap-2">
+        <div className="w-px h-5 bg-gray-200 hidden sm:block" />
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs text-gray-500 font-medium">Status:</span>
           {statusFilters.map((s) => (
             <button key={s} onClick={() => setStatus(s)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-[6px] capitalize transition-colors ${
+              className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] capitalize transition-colors ${
                 status === s ? "bg-purple-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}>{s}</button>
           ))}
