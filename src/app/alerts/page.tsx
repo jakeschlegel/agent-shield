@@ -36,7 +36,7 @@ export default function AlertsPage() {
           {severityFilters.map((s) => (
             <button key={s} onClick={() => setSeverity(s)}
               className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] capitalize transition-colors ${
-                severity === s ? "bg-orange-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                severity === s ? "bg-black text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}>{s}</button>
           ))}
         </div>
@@ -57,7 +57,7 @@ export default function AlertsPage() {
           <div key={alert.id} className="bg-white border border-gray-200 rounded-[6px] p-5 hover:shadow-sm transition-shadow">
             <div className="flex items-start gap-4">
               <div className={`mt-0.5 w-3 h-3 rounded-full shrink-0 ${
-                alert.severity === "critical" ? "bg-red-500" : alert.severity === "high" ? "bg-orange-500" : alert.severity === "medium" ? "bg-yellow-500" : "bg-blue-400"
+                alert.severity === "critical" ? "bg-red-500" : alert.severity === "high" ? "bg-black" : alert.severity === "medium" ? "bg-yellow-500" : "bg-blue-400"
               }`} />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
@@ -79,7 +79,7 @@ export default function AlertsPage() {
                 </div>
               </div>
               {alert.status !== "resolved" && (
-                <button className="shrink-0 px-3 py-1.5 text-xs font-medium text-orange-600 bg-orange-50 rounded-[6px] hover:bg-orange-100 transition-colors">
+                <button className="shrink-0 px-3 py-1.5 text-xs font-medium text-gray-900 bg-gray-50 rounded-[6px] hover:bg-gray-100 transition-colors">
                   Investigate
                 </button>
               )}

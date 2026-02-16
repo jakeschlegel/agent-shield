@@ -62,7 +62,7 @@ export function Sidebar() {
     <>
       <div className="flex items-center justify-between px-5 py-5 border-b border-gray-200">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-[6px] bg-orange-500 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-[6px] bg-black flex items-center justify-center">
             <Shield className="w-4.5 h-4.5 text-white" size={18} />
           </div>
           <div>
@@ -94,7 +94,7 @@ export function Sidebar() {
                     href={item.href}
                     className={`flex items-center gap-3 px-3 py-2.5 min-h-[44px] rounded-[6px] text-[14px] font-medium transition-colors ${
                       isActive
-                        ? "bg-orange-500 text-white"
+                        ? "bg-black text-white"
                         : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                     }`}
                   >
@@ -132,7 +132,7 @@ export function Sidebar() {
           <Menu size={22} />
         </button>
         <div className="flex items-center gap-2 ml-2">
-          <div className="w-7 h-7 rounded-[5px] bg-orange-500 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-[5px] bg-black flex items-center justify-center">
             <Shield className="text-white" size={15} />
           </div>
           <span className="font-semibold text-sm text-gray-900">Agent Shield</span>

@@ -33,7 +33,7 @@ export default function AgentInventory() {
           <h1 className="text-2xl font-semibold text-gray-900">Agent Inventory</h1>
           <p className="text-sm text-gray-500 mt-1">{agentList.length} agents monitored across your organization</p>
         </div>
-        <button onClick={() => setModalOpen(true)} className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors flex items-center gap-2">
+        <button onClick={() => setModalOpen(true)} className="px-4 py-2 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 transition-colors flex items-center gap-2">
           <Bot size={16} />
           + Add Agent
         </button>
@@ -48,7 +48,7 @@ export default function AgentInventory() {
             placeholder="Search agents..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 min-h-[44px] text-sm border border-gray-200 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500"
+            className="w-full pl-9 pr-4 py-2.5 min-h-[44px] text-sm border border-gray-200 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-black/20 focus:border-black"
           />
         </div>
         <div className="flex flex-wrap items-center gap-1.5">
@@ -58,7 +58,7 @@ export default function AgentInventory() {
               key={d}
               onClick={() => setDept(d)}
               className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] transition-colors ${
-                dept === d ? "bg-orange-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                dept === d ? "bg-black text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
               }`}
             >
               {d}

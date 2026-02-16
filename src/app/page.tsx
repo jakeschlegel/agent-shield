@@ -7,7 +7,7 @@ import { Bot, AlertTriangle, Gauge, ScanSearch, TrendingDown, TrendingUp } from 
 const stats = [
   { label: "Total Agents", value: agents.length.toString(), icon: Bot, change: "+3 this week", up: true, color: "bg-purple-50 text-purple-600" },
   { label: "Critical Alerts", value: alerts.filter(a => a.severity === "critical").toString().length < 2 ? alerts.filter(a => a.severity === "critical" && a.status !== "resolved").length.toString() : alerts.filter(a => a.severity === "critical" && a.status !== "resolved").length.toString(), icon: AlertTriangle, change: "+2 today", up: true, color: "bg-red-50 text-red-600" },
-  { label: "Avg Risk Score", value: Math.round(agents.reduce((a, b) => a + b.riskScore, 0) / agents.length).toString(), icon: Gauge, change: "-4 from last week", up: false, color: "bg-orange-50 text-orange-600" },
+  { label: "Avg Risk Score", value: Math.round(agents.reduce((a, b) => a + b.riskScore, 0) / agents.length).toString(), icon: Gauge, change: "-4 from last week", up: false, color: "bg-gray-50 text-gray-900" },
   { label: "Agents Scanned", value: "16", icon: ScanSearch, change: "2 remaining", up: true, color: "bg-green-50 text-green-600" },
 ];
 
@@ -53,7 +53,7 @@ export default function Dashboard() {
             {riskTrendData.map((val, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <div
-                  className={`w-full rounded-t-[4px] transition-all ${i === riskTrendData.length - 1 ? "bg-orange-500" : "bg-purple-200"}`}
+                  className={`w-full rounded-t-[4px] transition-all ${i === riskTrendData.length - 1 ? "bg-black" : "bg-purple-200"}`}
                   style={{ height: `${(val / 50) * 100}%` }}
                 />
                 <span className="text-[10px] text-gray-400">{months[i]}</span>
@@ -93,7 +93,7 @@ export default function Dashboard() {
           {criticalAlerts.map((alert) => (
             <div key={alert.id} className="flex items-center gap-4 py-2.5 border-b border-gray-100 last:border-0">
               <span className={`shrink-0 w-2 h-2 rounded-full ${
-                alert.severity === "critical" ? "bg-red-500" : alert.severity === "high" ? "bg-orange-500" : alert.severity === "medium" ? "bg-yellow-500" : "bg-blue-400"
+                alert.severity === "critical" ? "bg-red-500" : alert.severity === "high" ? "bg-black" : alert.severity === "medium" ? "bg-yellow-500" : "bg-blue-400"
               }`} />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">{alert.title}</p>

@@ -31,7 +31,7 @@ export default function PoliciesPage() {
           <h1 className="text-2xl font-semibold text-gray-900">Policies & Guardrails</h1>
           <p className="text-sm text-gray-500 mt-1">{allPolicies.length} policies configured · {totalViolations} active violations</p>
         </div>
-        <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors">
+        <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 transition-colors">
           + Create Policy
         </button>
       </div>
@@ -73,7 +73,7 @@ export default function PoliciesPage() {
                 )}
                 <button
                   onClick={(e) => { e.stopPropagation(); toggleEnabled(policy.id); }}
-                  className={`relative w-10 h-5.5 rounded-full transition-colors ${enabled ? "bg-orange-500" : "bg-gray-200"}`}
+                  className={`relative w-10 h-5.5 rounded-full transition-colors ${enabled ? "bg-black" : "bg-gray-200"}`}
                   style={{ height: "22px" }}
                 >
                   <span className={`absolute top-0.5 w-4.5 h-4.5 rounded-full bg-white shadow transition-transform ${enabled ? "left-5" : "left-0.5"}`}

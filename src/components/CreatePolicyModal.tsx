@@ -124,13 +124,13 @@ export default function CreatePolicyModal({ open, onClose, onCreate }: CreatePol
               <div key={i} className="flex items-center flex-1">
                 <div className="flex items-center gap-2">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ${
-                    i < step ? "bg-orange-500 text-white" : i === step ? "bg-orange-500 text-white" : "bg-gray-100 text-gray-400"
+                    i < step ? "bg-black text-white" : i === step ? "bg-black text-white" : "bg-gray-100 text-gray-400"
                   }`}>
                     {i < step ? <Check size={14} /> : i + 1}
                   </div>
                   <span className={`text-xs font-medium hidden sm:block ${i <= step ? "text-gray-900" : "text-gray-400"}`}>{label}</span>
                 </div>
-                {i < STEPS.length - 1 && <div className={`flex-1 h-px mx-2 ${i < step ? "bg-orange-500" : "bg-gray-200"}`} />}
+                {i < STEPS.length - 1 && <div className={`flex-1 h-px mx-2 ${i < step ? "bg-black" : "bg-gray-200"}`} />}
               </div>
             ))}
           </div>
@@ -143,25 +143,25 @@ export default function CreatePolicyModal({ open, onClose, onCreate }: CreatePol
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Policy Name *</label>
                 <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. PII Data Access Restrictions"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" />
+                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                 <textarea value={description} onChange={e => setDescription(e.target.value)} rows={3} placeholder="Describe what this policy enforces..."
-                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none" />
+                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
                   <select value={category} onChange={e => setCategory(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white">
+                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white">
                     {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Severity</label>
                   <select value={severity} onChange={e => setSeverity(e.target.value as Policy["severity"])}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white">
+                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent bg-white">
                     {SEVERITIES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase() + s.slice(1)}</option>)}
                   </select>
                 </div>
@@ -185,17 +185,17 @@ export default function CreatePolicyModal({ open, onClose, onCreate }: CreatePol
               ))}
               <div className="border border-gray-200 rounded-[6px] p-3 space-y-3">
                 <input value={newRuleDesc} onChange={e => setNewRuleDesc(e.target.value)} placeholder="e.g. Agent must not access PII without authorization"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                   onKeyDown={e => e.key === "Enter" && addRule()} />
                 <div className="flex items-center gap-3">
                   <select value={newRuleAction} onChange={e => setNewRuleAction(e.target.value as Rule["action"])}
-                    className="px-3 py-1.5 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    className="px-3 py-1.5 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                     <option value="Block">Block</option>
                     <option value="Alert">Alert</option>
                     <option value="Log">Log</option>
                   </select>
                   <button onClick={addRule} disabled={!newRuleDesc.trim()}
-                    className="flex items-center gap-1 px-3 py-1.5 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+                    className="flex items-center gap-1 px-3 py-1.5 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                     <Plus size={14} /> Add Rule
                   </button>
                 </div>
@@ -207,17 +207,17 @@ export default function CreatePolicyModal({ open, onClose, onCreate }: CreatePol
             <div className="space-y-4">
               <div className="flex items-center gap-3 flex-wrap">
                 <select value={deptFilter} onChange={e => setDeptFilter(e.target.value)}
-                  className="px-3 py-1.5 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                  className="px-3 py-1.5 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                   <option value="">All Departments</option>
                   {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
                 <select value={platformFilter} onChange={e => setPlatformFilter(e.target.value)}
-                  className="px-3 py-1.5 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                  className="px-3 py-1.5 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                   <option value="">All Platforms</option>
                   {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
                 </select>
                 <div className="flex gap-2 ml-auto">
-                  <button onClick={selectAll} className="text-xs text-orange-600 hover:text-orange-700 font-medium">Select All</button>
+                  <button onClick={selectAll} className="text-xs text-gray-900 hover:text-black font-medium">Select All</button>
                   <span className="text-gray-300">|</span>
                   <button onClick={deselectAll} className="text-xs text-gray-500 hover:text-gray-700 font-medium">Deselect All</button>
                 </div>
@@ -226,7 +226,7 @@ export default function CreatePolicyModal({ open, onClose, onCreate }: CreatePol
                 {filteredAgents.map(agent => (
                   <label key={agent.id} className="flex items-center gap-3 px-3 py-2.5 rounded-[6px] hover:bg-gray-50 cursor-pointer">
                     <input type="checkbox" checked={selectedAgents.has(agent.id)} onChange={() => toggleAgent(agent.id)}
-                      className="w-4 h-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500 accent-orange-500" />
+                      className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black accent-black" />
                     <div className="flex-1 min-w-0">
                       <span className="text-sm font-medium text-gray-800">{agent.name}</span>
                       <span className="text-xs text-gray-400 ml-2">{agent.department} · {agent.platform}</span>
@@ -286,12 +286,12 @@ export default function CreatePolicyModal({ open, onClose, onCreate }: CreatePol
           </button>
           {step < 3 ? (
             <button onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-              className="px-5 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+              className="px-5 py-2 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
               Next
             </button>
           ) : (
             <button onClick={handleCreate}
-              className="px-5 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors">
+              className="px-5 py-2 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 transition-colors">
               Create Policy
             </button>
           )}

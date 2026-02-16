@@ -189,7 +189,7 @@ export default function RedTeamTestRunner({ categories, initialCategoryId, open,
         {/* Progress bar */}
         <div className="h-1 bg-gray-100 shrink-0">
           <div
-            className="h-full bg-orange-500 transition-all duration-500 ease-out"
+            className="h-full bg-black transition-all duration-500 ease-out"
             style={{ width: `${totalTests > 0 ? (completedCount / totalTests) * 100 : 0}%` }}
           />
         </div>
@@ -332,7 +332,7 @@ export default function RedTeamTestRunner({ categories, initialCategoryId, open,
             </button>
             <button
               onClick={handleClose}
-              className="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded-[6px] hover:bg-orange-600 transition-colors"
+              className="px-4 py-2 text-sm font-medium text-white bg-black rounded-[6px] hover:bg-gray-800 transition-colors"
             >
               Close
             </button>

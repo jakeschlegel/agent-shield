@@ -175,13 +175,13 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
               <div key={i} className="flex items-center flex-1">
                 <div className="flex items-center gap-2">
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold ${
-                    i < step ? "bg-orange-500 text-white" : i === step ? "bg-orange-500 text-white" : "bg-gray-100 text-gray-400"
+                    i < step ? "bg-black text-white" : i === step ? "bg-black text-white" : "bg-gray-100 text-gray-400"
                   }`}>
                     {i < step ? <Check size={14} /> : i + 1}
                   </div>
                   <span className={`text-xs font-medium hidden sm:block ${i <= step ? "text-gray-900" : "text-gray-400"}`}>{label}</span>
                 </div>
-                {i < STEPS.length - 1 && <div className={`flex-1 h-px mx-2 ${i < step ? "bg-orange-500" : "bg-gray-200"}`} />}
+                {i < STEPS.length - 1 && <div className={`flex-1 h-px mx-2 ${i < step ? "bg-black" : "bg-gray-200"}`} />}
               </div>
             ))}
           </div>
@@ -195,18 +195,18 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Agent Name *</label>
                 <input value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Sales Copilot"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" />
+                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
                 <textarea value={description} onChange={e => setDescription(e.target.value)} rows={3} placeholder="What does this agent do?"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none" />
+                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Platform</label>
                   <select value={platform} onChange={e => handlePlatformChange(e.target.value as "Claude" | "OpenAI")}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                     <option value="Claude">Claude</option>
                     <option value="OpenAI">OpenAI</option>
                   </select>
@@ -214,7 +214,7 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Model</label>
                   <select value={model} onChange={e => setModel(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                     {MODEL_OPTIONS[platform].map(m => <option key={m} value={m}>{m}</option>)}
                   </select>
                 </div>
@@ -222,7 +222,7 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Department</label>
                 <select value={department} onChange={e => setDepartment(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                  className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent">
                   {DEPARTMENTS.map(d => <option key={d} value={d}>{d}</option>)}
                 </select>
               </div>
@@ -240,7 +240,7 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
                     {perms.map(p => (
                       <label key={p.name} className="flex items-center gap-3 px-3 py-2 rounded-[6px] hover:bg-gray-50 cursor-pointer">
                         <input type="checkbox" checked={selectedPerms.has(p.name)} onChange={() => togglePerm(p.name)}
-                          className="w-4 h-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500 accent-orange-500" />
+                          className="w-4 h-4 rounded border-gray-300 text-black focus:ring-black accent-black" />
                         <span className="text-sm text-gray-800 flex-1">{p.name}</span>
                         {riskBadge(p.risk)}
                       </label>
@@ -258,11 +258,11 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
               <p className="text-sm text-gray-500">Configure how this agent connects to Agent Shield. Choose your preferred integration method.</p>
               <div className="flex gap-2 border-b border-gray-200">
                 <button onClick={() => setConnectionTab("api")}
-                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${connectionTab === "api" ? "border-orange-500 text-orange-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
+                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${connectionTab === "api" ? "border-black text-gray-900" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
                   API Key &amp; Webhook
                 </button>
                 <button onClick={() => setConnectionTab("sdk")}
-                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${connectionTab === "sdk" ? "border-orange-500 text-orange-600" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
+                  className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${connectionTab === "sdk" ? "border-black text-gray-900" : "border-transparent text-gray-500 hover:text-gray-700"}`}>
                   Connect via SDK
                 </button>
               </div>
@@ -272,13 +272,13 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">API Key</label>
                     <input type="password" value={apiKey} onChange={e => setApiKey(e.target.value)} placeholder="sk-••••••••••••••••"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm font-mono focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" />
+                      className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm font-mono focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent" />
                     <p className="text-xs text-gray-400 mt-1">Your platform API key for agent communication</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Webhook URL</label>
                     <input type="url" value={webhookUrl} onChange={e => setWebhookUrl(e.target.value)} placeholder="https://your-app.com/agent-shield/webhook"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm font-mono focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent" />
+                      className="w-full px-3 py-2 border border-gray-300 rounded-[6px] text-sm font-mono focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent" />
                     <p className="text-xs text-gray-400 mt-1">Agent Shield will send policy events to this endpoint</p>
                   </div>
                   <div className="flex items-start gap-2 bg-blue-50 border border-blue-100 rounded-[6px] p-3">
@@ -374,12 +374,12 @@ export default function AddAgentModal({ open, onClose, onAdd }: AddAgentModalPro
           </button>
           {step < 3 ? (
             <button onClick={() => setStep(s => s + 1)} disabled={!canNext()}
-              className="px-5 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
+              className="px-5 py-2 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
               Next
             </button>
           ) : (
             <button onClick={handleAdd}
-              className="px-5 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors">
+              className="px-5 py-2 bg-black text-white text-sm font-medium rounded-[6px] hover:bg-gray-800 transition-colors">
               Add Agent
             </button>
           )}

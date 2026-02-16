@@ -25,7 +25,7 @@ export default function ActivityFeed() {
             key={s}
             onClick={() => setFilter(s)}
             className={`px-3 py-2 min-h-[44px] sm:min-h-0 sm:py-1.5 text-xs font-medium rounded-[6px] capitalize transition-colors ${
-              filter === s ? "bg-orange-500 text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+              filter === s ? "bg-black text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
             }`}
           >
             {s}
