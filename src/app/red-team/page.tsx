@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { redTeamTests } from "@/data/redteam";
-import { Syringe, DatabaseZap, ShieldAlert, Lock, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
+import { Syringe, DatabaseZap, ShieldAlert, Lock, CheckCircle2, XCircle, AlertTriangle, Play } from "lucide-react";
+import RedTeamTestRunner from "@/components/RedTeamTestRunner";
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Syringe,
@@ -11,8 +13,25 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
 };
 
 export default function RedTeamPage() {
+  const [runnerOpen, setRunnerOpen] = useState(false);
+  const [runnerCategoryId, setRunnerCategoryId] = useState<string | undefined>(undefined);
+
   const overallPass = redTeamTests.reduce((acc, t) => acc + t.tests.filter(x => x.result === "pass").length, 0);
   const overallTotal = redTeamTests.reduce((acc, t) => acc + t.tests.length, 0);
+
+  const handleRunAll = () => {
+    setRunnerCategoryId(undefined);
+    setRunnerOpen(true);
+  };
+
+  const handleRunCategory = (categoryId: string) => {
+    setRunnerCategoryId(categoryId);
+    setRunnerOpen(true);
+  };
+
+  const handleClose = () => {
+    setRunnerOpen(false);
+  };
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl">
@@ -21,7 +40,10 @@ export default function RedTeamPage() {
           <h1 className="text-2xl font-semibold text-gray-900">Red Team</h1>
           <p className="text-sm text-gray-500 mt-1">Simulated attack results across your AI agent fleet</p>
         </div>
-        <button className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors">
+        <button
+          onClick={handleRunAll}
+          className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors"
+        >
           Run All Tests
         </button>
       </div>
@@ -32,9 +54,18 @@ export default function RedTeamPage() {
           const Icon = iconMap[test.icon] || ShieldAlert;
           return (
             <div key={test.id} className="bg-white border border-gray-200 rounded-[6px] p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Icon size={16} className="text-purple-500" />
-                <span className="text-xs font-medium text-gray-500">{test.attackType}</span>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Icon size={16} className="text-purple-500" />
+                  <span className="text-xs font-medium text-gray-500">{test.attackType}</span>
+                </div>
+                <button
+                  onClick={() => handleRunCategory(test.id)}
+                  className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-purple-600 bg-purple-50 rounded-[6px] hover:bg-purple-100 transition-colors"
+                >
+                  <Play size={10} />
+                  Run
+                </button>
               </div>
               <div className="flex items-end justify-between">
                 <span className={`text-2xl font-bold ${test.passRate >= 80 ? "text-green-600" : test.passRate >= 60 ? "text-yellow-600" : "text-red-600"}`}>
@@ -62,6 +93,13 @@ export default function RedTeamPage() {
                     <h3 className="text-sm font-semibold text-gray-900">{test.attackType}</h3>
                     <p className="text-xs text-gray-400">{test.description}</p>
                   </div>
+                  <button
+                    onClick={() => handleRunCategory(test.id)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-purple-600 bg-purple-50 rounded-[6px] hover:bg-purple-100 transition-colors mr-3"
+                  >
+                    <Play size={12} />
+                    Run Tests
+                  </button>
                   <div className="text-right">
                     <span className={`text-lg font-bold ${test.passRate >= 80 ? "text-green-600" : test.passRate >= 60 ? "text-yellow-600" : "text-red-600"}`}>
                       {test.passRate}% pass
@@ -102,6 +140,13 @@ export default function RedTeamPage() {
           );
         })}
       </div>
+
+      <RedTeamTestRunner
+        categories={redTeamTests}
+        initialCategoryId={runnerCategoryId}
+        open={runnerOpen}
+        onClose={handleClose}
+      />
     </div>
   );
 }
