@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { agents } from "@/data/agents";
+import { agents as initialAgents, type Agent } from "@/data/agents";
 import { Search, Filter, Bot } from "lucide-react";
+import AddAgentModal from "@/components/AddAgentModal";
 
 const departments = ["All", "Sales", "Support", "Engineering", "Marketing", "Finance", "HR"];
 const platforms = ["All", "Claude", "OpenAI"];
@@ -11,22 +12,28 @@ export default function AgentInventory() {
   const [search, setSearch] = useState("");
   const [dept, setDept] = useState("All");
   const [platform, setPlatform] = useState("All");
+  const [agentList, setAgentList] = useState<Agent[]>(initialAgents);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const filtered = agents.filter((a) => {
+  const filtered = agentList.filter((a) => {
     const matchSearch = a.name.toLowerCase().includes(search.toLowerCase()) || a.department.toLowerCase().includes(search.toLowerCase());
     const matchDept = dept === "All" || a.department === dept;
     const matchPlatform = platform === "All" || a.platform === platform;
     return matchSearch && matchDept && matchPlatform;
   });
 
+  const handleAddAgent = (agent: Agent) => {
+    setAgentList(prev => [agent, ...prev]);
+  };
+
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Agent Inventory</h1>
-          <p className="text-sm text-gray-500 mt-1">{agents.length} agents monitored across your organization</p>
+          <p className="text-sm text-gray-500 mt-1">{agentList.length} agents monitored across your organization</p>
         </div>
-        <button className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors flex items-center gap-2">
+        <button onClick={() => setModalOpen(true)} className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors flex items-center gap-2">
           <Bot size={16} />
           + Add Agent
         </button>
@@ -133,6 +140,8 @@ export default function AgentInventory() {
           </tbody>
         </table>
       </div>
+
+      <AddAgentModal open={modalOpen} onClose={() => setModalOpen(false)} onAdd={handleAddAgent} />
     </div>
   );
 }
