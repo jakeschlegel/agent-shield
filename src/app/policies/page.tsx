@@ -1,35 +1,45 @@
 "use client";
 
 import { useState } from "react";
-import { policies } from "@/data/policies";
+import { policies as initialPolicies, type Policy } from "@/data/policies";
 import { CheckCircle2, XCircle, ChevronDown, ChevronRight } from "lucide-react";
+import CreatePolicyModal from "@/components/CreatePolicyModal";
 
 export default function PoliciesPage() {
+  const [allPolicies, setAllPolicies] = useState<Policy[]>(initialPolicies);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [enabledState, setEnabledState] = useState<Record<string, boolean>>(
-    Object.fromEntries(policies.map(p => [p.id, p.enabled]))
+    Object.fromEntries(initialPolicies.map(p => [p.id, p.enabled]))
   );
+  const [showCreate, setShowCreate] = useState(false);
+
+  const handleCreatePolicy = (policy: Policy) => {
+    setAllPolicies(prev => [policy, ...prev]);
+    setEnabledState(prev => ({ ...prev, [policy.id]: true }));
+  };
 
   const toggleEnabled = (id: string) => {
     setEnabledState(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const totalViolations = policies.reduce((acc, p) => acc + p.compliance.filter(c => !c.compliant).length, 0);
+  const totalViolations = allPolicies.reduce((acc, p) => acc + p.compliance.filter(c => !c.compliant).length, 0);
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-6xl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Policies & Guardrails</h1>
-          <p className="text-sm text-gray-500 mt-1">{policies.length} policies configured · {totalViolations} active violations</p>
+          <p className="text-sm text-gray-500 mt-1">{allPolicies.length} policies configured · {totalViolations} active violations</p>
         </div>
-        <button className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors">
+        <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-[6px] hover:bg-orange-600 transition-colors">
           + Create Policy
         </button>
       </div>
 
+      <CreatePolicyModal open={showCreate} onClose={() => setShowCreate(false)} onCreate={handleCreatePolicy} />
+
       <div className="space-y-3">
-        {policies.map((policy) => {
+        {allPolicies.map((policy) => {
           const isExpanded = expanded === policy.id;
           const violations = policy.compliance.filter(c => !c.compliant).length;
           const enabled = enabledState[policy.id];
